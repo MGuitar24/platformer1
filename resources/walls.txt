@@ -12,15 +12,21 @@
 # Bottom wall
 0,%(bottom_wall_y_pos)d,%(level_width)d,%(wall_thickness)d
 
-# Small ledge
+# Starting ledge
 10,200,100,%(wall_thickness)d
 
 # BEGIN STAIRS
-400,500,%(wall_thickness)d,200
-400,500,100,%(wall_thickness)d
+390,510,%(wall_thickness)d,80
+390,500,110,%(wall_thickness)d
 500,410,%(wall_thickness)d,100
-500,400,200,%(wall_thickness)d
-700,400,%(wall_thickness)d,100
-700,500,100,%(wall_thickness)d
-780,500,%(wall_thickness)d,200
+500,400,210,%(wall_thickness)d
+700,410,%(wall_thickness)d,90
+700,500,110,%(wall_thickness)d
+800,510,%(wall_thickness)d,100
 # END STAIRS
+
+# Zig-Zag platforms
+900,500,100,%(wall_thickness)d
+1050,400,100,%(wall_thickness)d
+850,300,100,%(wall_thickness)d
+1050,200,100,%(wall_thickness)d
