@@ -27,9 +27,6 @@
 
 # Zig-Zag platforms
 900,500,100,%(wall_thickness)d
-
 1050,400,100,%(wall_thickness)d
-
 850,300,100,%(wall_thickness)d
-
 1050,200,100,%(wall_thickness)d
