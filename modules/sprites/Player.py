@@ -28,6 +28,9 @@ class Player(pygame.sprite.Sprite):
         """ Change the speed of the player. """
         self.change_x += x * self.velocity
         self.change_y += y * self.velocity
+
+    def applyGravity(self):
+        self.change_y = 1 * self.velocity
  
     def update(self):
         """ Update the player position. """
