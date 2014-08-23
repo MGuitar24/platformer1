@@ -17,10 +17,14 @@ class EventsManager:
 				self.playableCharacter.changespeed(1)
 			elif event.key == pygame.K_SPACE:
 				self.playableCharacter.jump()
+			elif event.key == pygame.K_LSHIFT:
+				self.playableCharacter.deploy_parachute()
 
 		elif event.type == pygame.KEYUP:
 			if event.key == pygame.K_LEFT:
 				self.playableCharacter.changespeed(1)
 			elif event.key == pygame.K_RIGHT:
 				self.playableCharacter.changespeed(-1)
+			elif event.key == pygame.K_LSHIFT:
+				self.playableCharacter.undeploy_parachute()
 		return done
