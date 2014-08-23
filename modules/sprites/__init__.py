@@ -1,1 +1,1 @@
-__all__ = ["Player", "Wall", "WallManager"]
+__all__ = ["Player", "Wall", "WallManager", "PauseMenu"]
