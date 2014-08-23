@@ -10,6 +10,8 @@ class Player(pygame.sprite.Sprite):
     change_y = 0
     walls = None
     velocity = 6
+    max_gravity = 10
+    jumping = False
  
     # Constructor function
     def __init__(self, x, y, spriteImage):
@@ -24,14 +26,19 @@ class Player(pygame.sprite.Sprite):
         self.rect.y = y
         self.rect.x = x
  
-    def changespeed(self, x, y):
+    def changespeed(self, x):
         """ Change the speed of the player. """
         self.change_x += x * self.velocity
-        self.change_y += y * self.velocity
 
     def applyGravity(self):
-        self.change_y = 1 * self.velocity
+        if self.change_y < self.max_gravity:
+            self.change_y += 1
  
+    def jump(self):
+        if not self.jumping:
+            self.change_y = -16
+            self.jumping = True
+
     def update(self):
         """ Update the player position. """
         # Move left/right
@@ -57,5 +64,6 @@ class Player(pygame.sprite.Sprite):
             # Reset our position based on the top/bottom of the object.
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
+                self.jumping = False
             else:
                 self.rect.top = block.rect.bottom
