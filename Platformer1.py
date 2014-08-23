@@ -113,7 +113,7 @@ pygame.init()
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
  
 # Set the title of the window
-pygame.display.set_caption('Test')
+pygame.display.set_caption('Between the world of Black and Blue')
  
 # List to hold all the sprites
 all_sprite_list = pygame.sprite.Group()
