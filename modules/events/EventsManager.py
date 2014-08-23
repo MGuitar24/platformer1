@@ -12,21 +12,15 @@ class EventsManager:
 			if event.key == pygame.K_ESCAPE:
 				done = True
 			if event.key == pygame.K_LEFT:
-				self.playableCharacter.changespeed(-1, 0)
+				self.playableCharacter.changespeed(-1)
 			elif event.key == pygame.K_RIGHT:
-				self.playableCharacter.changespeed(1, 0)
-			elif event.key == pygame.K_UP:
-				self.playableCharacter.changespeed(0, -1)
-			elif event.key == pygame.K_DOWN:
-				self.playableCharacter.changespeed(0, 1)
+				self.playableCharacter.changespeed(1)
+			elif event.key == pygame.K_SPACE:
+				self.playableCharacter.jump()
 
 		elif event.type == pygame.KEYUP:
 			if event.key == pygame.K_LEFT:
-				self.playableCharacter.changespeed(1, 0)
+				self.playableCharacter.changespeed(1)
 			elif event.key == pygame.K_RIGHT:
-				self.playableCharacter.changespeed(-1, 0)
-			elif event.key == pygame.K_UP:
-				self.playableCharacter.changespeed(0, 1)
-			elif event.key == pygame.K_DOWN:
-				self.playableCharacter.changespeed(0, -1)
+				self.playableCharacter.changespeed(-1)
 		return done

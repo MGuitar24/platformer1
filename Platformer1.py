@@ -60,34 +60,20 @@ all_sprite_list.add(wall_list)
 player = Player.Player(50, 50, IMAGESDICT['player'])
 player.walls = wall_list
 all_sprite_list.add(player)
-
-# Create the player paddle object
-#player2 = Player.Player(70, 50)
-#player2.walls = wall_list
-#all_sprite_list.add(player2)
  
 clock = pygame.time.Clock()
  
 done = False
 
 eventsManager = EventsManager.EventsManager(player)
-#eventsManager2 = EventsManager.EventsManager(player2)
 
 while not done:
- 
-    for event in pygame.event.get():
-        done = eventsManager.determineEvent(event)
-        PhysicsEngine.PhysicsEngine().applyGravity([player])
-#        eventsManager2.determineEvent(event)
- 
-    all_sprite_list.update()
- 
-    screen.fill(BLACK)
- 
-    all_sprite_list.draw(screen)
- 
-    pygame.display.flip()
- 
-    clock.tick(60)
- 
+	for event in pygame.event.get():
+		done = eventsManager.determineEvent(event)
+	PhysicsEngine.PhysicsEngine().applyGravity(player)
+	all_sprite_list.update()
+	screen.fill(BLACK)
+	all_sprite_list.draw(screen)
+	pygame.display.flip()
+	clock.tick(60)
 pygame.quit()
