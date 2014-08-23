@@ -1,1 +1,1 @@
-__all__ = ["PhysicsEngine"]
+__all__ = ["PhysicsEngine","Camera"]
