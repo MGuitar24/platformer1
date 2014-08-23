@@ -35,8 +35,8 @@ class Player(pygame.sprite.Sprite):
     def applyGravity(self):
         if self.change_y < self.max_fall_speed:
             self.change_y += 1
-        elif self.change_y >= self.max_fall_speed:
-            self.change_y = self.max_fall_speed
+        elif self.change_y > self.max_fall_speed:
+			self.change_y = self.max_fall_speed
  
     def jump(self):
         if not self.jumping:
