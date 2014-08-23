@@ -21,6 +21,7 @@ http://programarcadegames.com/python_examples/sprite_sheets/
 import pygame
 
 from modules.sprites import *
+from modules.events import *
  
 """
 Global constants
@@ -80,32 +81,13 @@ all_sprite_list.add(player)
 clock = pygame.time.Clock()
  
 done = False
- 
+
+eventsManager = EventsManager.EventsManager(player)
+
 while not done:
  
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
- 
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player.changespeed(-6, 0)
-            elif event.key == pygame.K_RIGHT:
-                player.changespeed(6, 0)
-            elif event.key == pygame.K_UP:
-                player.changespeed(0, -6)
-            elif event.key == pygame.K_DOWN:
-                player.changespeed(0, 6)
- 
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                player.changespeed(6, 0)
-            elif event.key == pygame.K_RIGHT:
-                player.changespeed(-6, 0)
-            elif event.key == pygame.K_UP:
-                player.changespeed(0, 6)
-            elif event.key == pygame.K_DOWN:
-                player.changespeed(0, -6)
+        eventsManager.determineEvent(event)
  
     all_sprite_list.update()
  
