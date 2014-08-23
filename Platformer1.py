@@ -31,7 +31,7 @@ Global constants
 BLACK = (0,   0,   0)
  
 # Screen dimensions
-SCREEN_WIDTH  = 800
+SCREEN_WIDTH  = 1200
 SCREEN_HEIGHT = 600
 
 
