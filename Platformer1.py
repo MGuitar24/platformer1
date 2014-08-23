@@ -32,6 +32,8 @@ BLACK    = (   0,   0,   0)
 # Screen dimensions
 SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
+
+
  
 # Call this function so the Pygame library can initialize itself
 pygame.init()
@@ -41,6 +43,8 @@ screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
  
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
+
+IMAGESDICT = {'player': pygame.image.load('BODY_skeleton.png')}
  
 # List to hold all the sprites
 all_sprite_list = pygame.sprite.Group()
@@ -73,7 +77,7 @@ wall_list.add(wall)
 all_sprite_list.add(wall)
  
 # Create the player paddle object
-player = Player.Player(50, 50)
+player = Player.Player(50, 50, IMAGESDICT['player'])
 player.walls = wall_list
 all_sprite_list.add(player)
  
