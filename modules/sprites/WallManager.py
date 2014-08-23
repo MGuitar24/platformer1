@@ -3,9 +3,8 @@ import pygame
 import Wall
 
 class WallManager:
-	wall_thickness = 10
-	level_width = 1200
-	right_wall_x_pos = level_width - wall_thickness
+	wall_properties = {'wall_thickness': 10, 'level_width': 1200}	
+	wall_properties['right_wall_x_pos'] = level_width - wall_thickness
 
 	def get_walls(self):
 		wall_list = pygame.sprite.Group()
