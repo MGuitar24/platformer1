@@ -22,7 +22,7 @@
 500,400,210,%(wall_thickness)d
 700,410,%(wall_thickness)d,90
 700,500,110,%(wall_thickness)d
-800,510,%(wall_thickness)d,100
+800,510,%(wall_thickness)d,90
 # END STAIRS
 
 # Zig-Zag platforms

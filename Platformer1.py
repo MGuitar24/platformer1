@@ -93,12 +93,9 @@ while not done:
 	PhysicsEngine.PhysicsEngine().applyGravity([player])
 	all_sprite_list.update()
 	screen.fill(BLACK)
-	all_sprite_list.draw(screen)
-	entities = pygame.sprite.Group()
-	entities.add(player)
 	camera.update(player)
-	for e in entities:
-            screen.blit(e.image, camera.apply(e))
+	for entity in all_sprite_list:
+            screen.blit(entity.image, camera.apply(entity))
 	pygame.display.flip()
 	clock.tick(60)
 pygame.quit()
