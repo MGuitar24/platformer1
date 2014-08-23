@@ -68,7 +68,7 @@ eventsManager = EventsManager.EventsManager(player)
 while not done:
 	for event in pygame.event.get():
 		done = eventsManager.determineEvent(event)
-	PhysicsEngine.PhysicsEngine().applyGravity(player)
+	PhysicsEngine.PhysicsEngine().applyGravity([player])
 	all_sprite_list.update()
 	screen.fill(BLACK)
 	all_sprite_list.draw(screen)

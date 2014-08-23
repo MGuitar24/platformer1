@@ -11,6 +11,8 @@ class Player(pygame.sprite.Sprite):
     walls = None
     velocity = 6
     max_gravity = 6
+    max_parachute_speed = 1
+    max_fall_speed = max_gravity
     jumping = False
  
     # Constructor function
@@ -31,13 +33,21 @@ class Player(pygame.sprite.Sprite):
         self.change_x += x * self.velocity
 
     def applyGravity(self):
-        if self.change_y < self.max_gravity:
+        if self.change_y < self.max_fall_speed:
             self.change_y += 1
+        elif self.change_y >= self.max_fall_speed:
+            self.change_y = self.max_fall_speed
  
     def jump(self):
         if not self.jumping:
             self.change_y = -16
             self.jumping = True
+
+    def deploy_parachute(self):
+        self.max_fall_speed = self.max_parachute_speed
+
+    def undeploy_parachute(self):
+        self.max_fall_speed = self.max_gravity
 
     def update(self):
         """ Update the player position. """
