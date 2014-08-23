@@ -35,8 +35,6 @@ BLACK = (0,   0,   0)
 SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
 
-
- 
 # Call this function so the Pygame library can initialize itself
 pygame.init()
  
