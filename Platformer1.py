@@ -83,7 +83,7 @@ clock = pygame.time.Clock()
  
 done = False
 
-camera = Camera.Camera(simple_camera,  int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT']))
+camera = Camera.Camera(complex_camera,  int(properties['LEVEL_WIDTH']), int(properties['LEVEL_HEIGHT']))
 
 eventsManager = EventsManager.EventsManager(player)
 
