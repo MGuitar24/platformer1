@@ -28,7 +28,7 @@ Global constants
 """
  
 # Colors
-BLACK    = (   0,   0,   0)
+BLACK = (0,   0,   0)
  
 # Screen dimensions
 SCREEN_WIDTH  = 800
@@ -51,31 +51,9 @@ IMAGESDICT = {'player': pygame.image.load('player.png')}
 all_sprite_list = pygame.sprite.Group()
  
 # Make the walls. (x_pos, y_pos, width, height)
-wall_list = pygame.sprite.Group()
- 
-#Left Side wall
-wall = Wall.Wall(0, 0, 10, 600)
-wall_list.add(wall)
-all_sprite_list.add(wall)
-
-#Top wall
-wall = Wall.Wall(10, 0, 790, 10)
-wall_list.add(wall)
-all_sprite_list.add(wall)
-
-#Small ledge
-wall = Wall.Wall(10, 200, 100, 10)
-wall_list.add(wall)
-all_sprite_list.add(wall)
-
-#Right Side Wall
-wall = Wall.Wall(790, 0, 10, 600)
-wall_list.add(wall)
-all_sprite_list.add(wall)
-
-wall = Wall.Wall(0, 590, 800, 10)
-wall_list.add(wall)
-all_sprite_list.add(wall)
+wall_manager = WallManager.WallManager()
+wall_list = wall_manager.get_walls()
+all_sprite_list.add(wall_list)
  
 # Create the player paddle object
 player = Player.Player(50, 50, IMAGESDICT['player'])
