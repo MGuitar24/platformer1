@@ -32,7 +32,7 @@ Global constants
 BLACK = (0,   0,   0)
  
 # Screen dimensions
-SCREEN_WIDTH  = 1200
+SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
 
 
@@ -52,7 +52,7 @@ IMAGESDICT = {'player': pygame.image.load('player.png')}
 all_sprite_list = pygame.sprite.Group()
  
 # Make the walls. (x_pos, y_pos, width, height)
-wall_manager = WallManager.WallManager()
+wall_manager = WallManager.WallManager(SCREEN_WIDTH, SCREEN_HEIGHT)
 wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
  

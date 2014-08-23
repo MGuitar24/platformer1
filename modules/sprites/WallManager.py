@@ -3,29 +3,30 @@ import pygame
 from modules.sprites import Wall
 
 class WallManager:
-	wall_properties = {'wall_thickness': 10, 'level_width': 1200}	
-	wall_properties['right_wall_x_pos'] = level_width - wall_thickness
+	wall_properties = None
+
+	def __init__(self, level_width, level_height):
+		self.wall_properties = {'wall_thickness': 10, 'level_width': level_width, 'level_height': level_height}	
+		self.wall_properties['right_wall_x_pos'] = self.wall_properties['level_width'] - self.wall_properties['wall_thickness']
+		self.wall_properties['top_wall_width'] = self.wall_properties['level_width'] - self.wall_properties['wall_thickness']
+		self.wall_properties['bottom_wall_y_pos'] = self.wall_properties['level_height'] - self.wall_properties['wall_thickness']
 
 	def get_walls(self):
 		wall_list = pygame.sprite.Group()
 
-		#Left Side wall
-		wall = Wall.Wall(0, 0, self.wall_thickness, 600)
-		wall_list.add(wall)
+		wall_file = open("modules/sprites/walls.txt", "r")
 
-		#Top wall
-		wall = Wall.Wall(10, 0, 790, self.wall_thickness)
-		wall_list.add(wall)
+		for line in wall_file.read().splitlines():
+			if not line or line.startswith("#"):
+				continue
 
-		#Small ledge
-		wall = Wall.Wall(10, 200, 100, self.wall_thickness)
-		wall_list.add(wall)
+			line = line % self.wall_properties
+			line_params = line.split(",")
 
-		#Right Side Wall
-		wall = Wall.Wall(self.right_wall_x_pos, 0, self.wall_thickness, 600)
-		wall_list.add(wall)
+			wall = Wall.Wall(line_params[0], line_params[1], line_params[2], line_params[3])
 
-		wall = Wall.Wall(0, 590, 800, self.wall_thickness)
-		wall_list.add(wall)
+			wall_list.add(wall)
+
+		wall_file.close()
 
 		return wall_list
