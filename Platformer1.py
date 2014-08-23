@@ -140,6 +140,10 @@ all_sprite_list.add(wall)
 wall = Wall(790, 0, 10, 600)
 wall_list.add(wall)
 all_sprite_list.add(wall)
+
+wall = Wall(0, 590, 800, 10)
+wall_list.add(wall)
+all_sprite_list.add(wall)
  
 # Create the player paddle object
 player = Player(50, 50)
