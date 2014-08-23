@@ -1,6 +1,6 @@
 """ Manages the levels """
 import pygame
-import Wall
+from modules.sprites import Wall
 
 class WallManager:
 	def get_walls(self):
