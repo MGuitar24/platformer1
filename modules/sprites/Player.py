@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
     change_x = 0
     change_y = 0
     walls = None
+    velocity = 6
  
     # Constructor function
     def __init__(self, x, y, spriteImage):
@@ -25,8 +26,8 @@ class Player(pygame.sprite.Sprite):
  
     def changespeed(self, x, y):
         """ Change the speed of the player. """
-        self.change_x += x
-        self.change_y += y
+        self.change_x += x * self.velocity
+        self.change_y += y * self.velocity
  
     def update(self):
         """ Update the player position. """

@@ -21,6 +21,7 @@ http://programarcadegames.com/python_examples/sprite_sheets/
 import pygame
 
 from modules.sprites import *
+from modules.events import *
  
 """
 Global constants
@@ -80,36 +81,24 @@ all_sprite_list.add(wall)
 player = Player.Player(50, 50, IMAGESDICT['player'])
 player.walls = wall_list
 all_sprite_list.add(player)
+
+# Create the player paddle object
+#player2 = Player.Player(70, 50)
+#player2.walls = wall_list
+#all_sprite_list.add(player2)
  
 clock = pygame.time.Clock()
  
 done = False
- 
+
+eventsManager = EventsManager.EventsManager(player)
+#eventsManager2 = EventsManager.EventsManager(player2)
+
 while not done:
  
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
- 
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player.changespeed(-6, 0)
-            elif event.key == pygame.K_RIGHT:
-                player.changespeed(6, 0)
-            elif event.key == pygame.K_UP:
-                player.changespeed(0, -6)
-            elif event.key == pygame.K_DOWN:
-                player.changespeed(0, 6)
- 
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                player.changespeed(6, 0)
-            elif event.key == pygame.K_RIGHT:
-                player.changespeed(-6, 0)
-            elif event.key == pygame.K_UP:
-                player.changespeed(0, 6)
-            elif event.key == pygame.K_DOWN:
-                player.changespeed(0, -6)
+        done = eventsManager.determineEvent(event)
+#        eventsManager2.determineEvent(event)
  
     all_sprite_list.update()
  
