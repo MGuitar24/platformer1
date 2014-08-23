@@ -77,17 +77,24 @@ all_sprite_list.add(wall)
 player = Player.Player(50, 50)
 player.walls = wall_list
 all_sprite_list.add(player)
+
+# Create the player paddle object
+#player2 = Player.Player(70, 50)
+#player2.walls = wall_list
+#all_sprite_list.add(player2)
  
 clock = pygame.time.Clock()
  
 done = False
 
 eventsManager = EventsManager.EventsManager(player)
+#eventsManager2 = EventsManager.EventsManager(player2)
 
 while not done:
  
     for event in pygame.event.get():
-        eventsManager.determineEvent(event)
+        done = eventsManager.determineEvent(event)
+#        eventsManager2.determineEvent(event)
  
     all_sprite_list.update()
  
