@@ -20,8 +20,7 @@ http://programarcadegames.com/python_examples/sprite_sheets/
  
 import pygame
 
-from modules.sprites.Player import Player
-from modules.sprites.Wall import Wall
+from modules.sprites import *
  
 """
 Global constants
@@ -29,8 +28,6 @@ Global constants
  
 # Colors
 BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-BLUE     = (   0,   0, 255)
  
 # Screen dimensions
 SCREEN_WIDTH  = 800
@@ -52,31 +49,31 @@ all_sprite_list = pygame.sprite.Group()
 wall_list = pygame.sprite.Group()
  
 #Left Side wall
-wall = Wall(0, 0, 10, 600)
+wall = Wall.Wall(0, 0, 10, 600)
 wall_list.add(wall)
 all_sprite_list.add(wall)
 
 #Top wall
-wall = Wall(10, 0, 790, 10)
+wall = Wall.Wall(10, 0, 790, 10)
 wall_list.add(wall)
 all_sprite_list.add(wall)
 
 #Small ledge
-wall = Wall(10, 200, 100, 10)
+wall = Wall.Wall(10, 200, 100, 10)
 wall_list.add(wall)
 all_sprite_list.add(wall)
 
 #Right Side Wall
-wall = Wall(790, 0, 10, 600)
+wall = Wall.Wall(790, 0, 10, 600)
 wall_list.add(wall)
 all_sprite_list.add(wall)
 
-wall = Wall(0, 590, 800, 10)
+wall = Wall.Wall(0, 590, 800, 10)
 wall_list.add(wall)
 all_sprite_list.add(wall)
  
 # Create the player paddle object
-player = Player(50, 50)
+player = Player.Player(50, 50)
 player.walls = wall_list
 all_sprite_list.add(player)
  
