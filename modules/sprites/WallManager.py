@@ -1,6 +1,6 @@
 """ Manages the levels """
 import pygame
-import Wall
+from modules.sprites import Wall
 
 class WallManager:
 	wall_properties = {'wall_thickness': 10, 'level_width': 1200}	

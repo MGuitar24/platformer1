@@ -22,6 +22,7 @@ import pygame
 
 from modules.sprites import *
 from modules.events import *
+from modules.physics import *
  
 """
 Global constants
@@ -76,6 +77,7 @@ while not done:
  
     for event in pygame.event.get():
         done = eventsManager.determineEvent(event)
+        PhysicsEngine.PhysicsEngine().applyGravity([player])
 #        eventsManager2.determineEvent(event)
  
     all_sprite_list.update()
