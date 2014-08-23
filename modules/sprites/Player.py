@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
     change_y = 0
     walls = None
     velocity = 6
-    max_gravity = 10
+    max_gravity = 6
     jumping = False
  
     # Constructor function
@@ -56,7 +56,7 @@ class Player(pygame.sprite.Sprite):
  
         # Move up/down
         self.rect.y += self.change_y
- 
+
         # Check and see if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.walls, False)
         for block in block_hit_list:
@@ -65,5 +65,6 @@ class Player(pygame.sprite.Sprite):
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
                 self.jumping = False
+                self.change_y = 0
             else:
                 self.rect.top = block.rect.bottom
