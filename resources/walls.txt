@@ -25,7 +25,7 @@
 800,510,%(wall_thickness)d,100
 # END STAIRS
 
-# Right side platform
+# Zig-Zag platforms
 900,500,100,%(wall_thickness)d
 
 1050,400,100,%(wall_thickness)d
