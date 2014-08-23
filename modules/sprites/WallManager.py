@@ -5,8 +5,10 @@ from modules.sprites import Wall
 class WallManager:
 	wall_properties = None
 
-	def __init__(self, level_width, level_height):
-		self.wall_properties = {'wall_thickness': 10, 'level_width': level_width, 'level_height': level_height}	
+	def __init__(self):
+		properties = dict(line.strip().split('=') for line in open('settings.ini'))
+
+		self.wall_properties = {'wall_thickness': int(properties['WALL_THICKNESS']), 'level_width': int(properties['LEVEL_WIDTH']), 'level_height': int(properties['LEVEL_HEIGHT'])}	
 		self.wall_properties['right_wall_x_pos'] = self.wall_properties['level_width'] - self.wall_properties['wall_thickness']
 		self.wall_properties['top_wall_width'] = self.wall_properties['level_width'] - self.wall_properties['wall_thickness']
 		self.wall_properties['bottom_wall_y_pos'] = self.wall_properties['level_height'] - self.wall_properties['wall_thickness']

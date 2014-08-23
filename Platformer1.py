@@ -30,16 +30,14 @@ Global constants
  
 # Colors
 BLACK = (0,   0,   0)
- 
-# Screen dimensions
-SCREEN_WIDTH  = 800
-SCREEN_HEIGHT = 600
 
+properties = dict(line.strip().split('=') for line in open('settings.ini'))
+ 
 # Call this function so the Pygame library can initialize itself
 pygame.init()
  
 # Create an 800x600 sized screen
-screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT'])])
  
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
@@ -50,7 +48,7 @@ IMAGESDICT = {'player': pygame.image.load('player.png')}
 all_sprite_list = pygame.sprite.Group()
  
 # Make the walls. (x_pos, y_pos, width, height)
-wall_manager = WallManager.WallManager(SCREEN_WIDTH, SCREEN_HEIGHT)
+wall_manager = WallManager.WallManager()
 wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
  
