@@ -121,22 +121,29 @@ all_sprite_list = pygame.sprite.Group()
 # Make the walls. (x_pos, y_pos, width, height)
 wall_list = pygame.sprite.Group()
  
+#Left Side wall
 wall = Wall(0, 0, 10, 600)
 wall_list.add(wall)
 all_sprite_list.add(wall)
- 
+
+#Top wall
 wall = Wall(10, 0, 790, 10)
 wall_list.add(wall)
 all_sprite_list.add(wall)
- 
+
+#Small ledge
 wall = Wall(10, 200, 100, 10)
+wall_list.add(wall)
+all_sprite_list.add(wall)
+
+#Right Side Wall
+wall = Wall(790, 0, 10, 600)
 wall_list.add(wall)
 all_sprite_list.add(wall)
  
 # Create the player paddle object
 player = Player(50, 50)
 player.walls = wall_list
- 
 all_sprite_list.add(player)
  
 clock = pygame.time.Clock()
