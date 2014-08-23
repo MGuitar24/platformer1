@@ -23,6 +23,7 @@ import pygame
 from modules.sprites import *
 from modules.events import *
 from modules.physics import *
+from pygame import *
  
 """
 Global constants
@@ -32,10 +33,31 @@ Global constants
 BLACK = (0,   0,   0)
 
 properties = dict(line.strip().split('=') for line in open('settings.ini'))
+
+HALF_WIDTH = int(int(properties['SCREEN_WIDTH']) / 2)
+HALF_HEIGHT = int(int(properties['SCREEN_HEIGHT']) / 2)
+
+
+def simple_camera(camera, target_rect):
+    l, t, _, _ = target_rect
+    _, _, w, h = camera
+    return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
+
+def complex_camera(camera, target_rect):
+    l, t, _, _ = target_rect
+    _, _, w, h = camera
+    l, t, _, _ = -l+HALF_WIDTH, -t+HALF_HEIGHT, w, h
+
+    l = min(0, l)                           # stop scrolling at the left edge
+    l = max(-(camera.width-int(properties['SCREEN_WIDTH'])), l)   # stop scrolling at the right edge
+    t = max(-(camera.height-int(properties['SCREEN_HEIGHT'])), t) # stop scrolling at the bottom
+    t = min(0, t)                           # stop scrolling at the top
+    return Rect(l, t, w, h)
+    
+
  
 # Call this function so the Pygame library can initialize itself
 pygame.init()
- 
 # Create an 800x600 sized screen
 screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT'])])
  
@@ -61,6 +83,8 @@ clock = pygame.time.Clock()
  
 done = False
 
+camera = Camera.Camera(complex_camera,  int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT']))
+
 eventsManager = EventsManager.EventsManager(player)
 
 while not done:
@@ -70,6 +94,10 @@ while not done:
 	all_sprite_list.update()
 	screen.fill(BLACK)
 	all_sprite_list.draw(screen)
+	entities = pygame.sprite.Group()
+	camera.update(player)
+	for e in entities:
+            screen.blit(e.image, camera.apply(e))
 	pygame.display.flip()
 	clock.tick(60)
 pygame.quit()
