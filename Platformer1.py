@@ -23,6 +23,7 @@ import pygame
 from modules.sprites import *
 from modules.events import *
 from modules.physics import *
+from modules.resource_handling.images import *
  
 """
 Global constants
@@ -42,8 +43,9 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
 
-IMAGESDICT = {'player': pygame.image.load('player.png')}
- 
+# Load image resources
+IMAGESDICT = {'player': Spritesheet.Spritesheet('BODY_skeleton.png').image_at((18, 128, 28, 60))}
+
 # List to hold all the sprites
 all_sprite_list = pygame.sprite.Group()
  
