@@ -1,4 +1,5 @@
 import pygame
+from modules.resource_handling.images import *
 
 WHITE    = ( 255, 255, 255)
 
@@ -8,20 +9,36 @@ class Player(pygame.sprite.Sprite):
     # Set speed vector
     change_x = 0
     change_y = 0
+    animationSwitchThreshold = 9
+    animationSwitchCount = 0
+    animationFrames = 9
+    currentFrame = 0
     walls = None
     velocity = 6
     max_gravity = 6
     max_parachute_speed = 1
     max_fall_speed = max_gravity
     jumping = False
- 
+    iWidth = 28                 # The width of the sprite
+    iHeight = 46                # The height of the sprite
+    imageLeftY = 79             # Left animation y value
+    imageDownY = 143            # Down animation y value
+    imageRightY = 207           # Right animation y value
+    downAnimationFrames = []
+    rightAnimationFrames = []
+    leftAnimationFrames = []
+        
     # Constructor function
-    def __init__(self, x, y, spriteImage):
+    def __init__(self, x, y, playerSpriteSheet):
         # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
- 
-        # Set height, width
-        self.image = spriteImage
+        spriteMap = Spritesheet.Spritesheet(playerSpriteSheet)
+        spritesheetUtility = SpritesheetUtility.SpritesheetUtility()
+        self.downAnimationFrames = spritesheetUtility.animationFramesLoader(18, self.imageDownY, self.iWidth, self.iHeight, 64, spriteMap)
+        self.rightAnimationFrames = spritesheetUtility.animationFramesLoader(18, self.imageRightY, self.iWidth, self.iHeight, 64,  spriteMap)
+        self.leftAnimationFrames = spritesheetUtility.animationFramesLoader(18, self.imageLeftY, self.iWidth, self.iHeight, 64, spriteMap)
+        
+        self.image = self.downAnimationFrames[self.currentFrame]
  
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
@@ -50,6 +67,15 @@ class Player(pygame.sprite.Sprite):
         self.max_fall_speed = self.max_gravity
 
     def update(self):
+        if self.animationSwitchCount == self.animationSwitchThreshold:
+            self.image = self.downAnimationFrames[self.currentFrame]
+            self.currentFrame += 1
+            if self.currentFrame > 8:
+                self.currentFrame = 0
+            self.animationSwitchCount = 0
+        else:
+            self.animationSwitchCount += 1
+
         """ Update the player position. """
         # Move left/right
         self.rect.x += self.change_x
