@@ -61,6 +61,9 @@ class Player(pygame.sprite.Sprite):
         if not self.jumping:
             self.change_y = -16
             self.jumping = True
+        if self.jumping:
+            self.change_y = -16
+            self.jumpingTwice = True
 
     def deploy_parachute(self):
         self.max_fall_speed = self.max_parachute_speed
@@ -112,6 +115,7 @@ class Player(pygame.sprite.Sprite):
             # Reset our position based on the top/bottom of the object.
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
+                self.jumping = False
                 self.jumping = False
                 self.change_y = 0
             else:
