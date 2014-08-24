@@ -31,6 +31,7 @@ Global constants
  
 # Colors
 BLACK = (0,   0,   0)
+PINK = (255, 20, 147)
 
 properties = dict(line.strip().split('=') for line in open('settings.ini'))
 
@@ -64,7 +65,7 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
 
-IMAGESDICT = {'player': pygame.image.load('player.png')}
+IMAGESDICT = {'player': pygame.image.load('player.png'),'parachute': pygame.image.load('parachute.png')}
  
 # List to hold all the sprites
 all_sprite_list = pygame.sprite.Group()
@@ -92,7 +93,7 @@ while not done:
 		done = eventsManager.determineEvent(event)
 	PhysicsEngine.PhysicsEngine().applyGravity([player])
 	all_sprite_list.update()
-	screen.fill(BLACK)
+	screen.fill(PINK)
 	camera.update(player)
 	for entity in all_sprite_list:
             screen.blit(entity.image, camera.apply(entity))
