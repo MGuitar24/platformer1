@@ -35,6 +35,10 @@ PINK = (255, 20, 147)
 
 properties = dict(line.strip().split('=') for line in open('settings.ini'))
 
+resourceFiles = {}
+resourceFiles["MAIN_CHARACTER"] = 'resources/spritemaps/BODY_skeleton.png'
+resourceFiles["CHEST"] = 'resources/spritemaps/OBJECT_chest.png'
+
 HALF_WIDTH = int(int(properties['SCREEN_WIDTH']) / 2)
 HALF_HEIGHT = int(int(properties['SCREEN_HEIGHT']) / 2)
 
@@ -72,10 +76,13 @@ wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
  
 # Create the player paddle object
-playerSpriteSheet = 'resources/spritemaps/BODY_skeleton.png'
+playerSpriteSheet = resourceFiles["MAIN_CHARACTER"]
 player = Player.Player(50, 50, playerSpriteSheet)
 player.walls = wall_list
 all_sprite_list.add(player)
+
+chest = Chest.Chest(10, 556, resourceFiles["CHEST"])
+all_sprite_list.add(chest)
  
 clock = pygame.time.Clock()
  
