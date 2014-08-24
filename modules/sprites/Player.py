@@ -15,7 +15,7 @@ class Player(pygame.sprite.Sprite):
     currentFrame = 0
     walls = None
     velocity = 6
-    max_gravity = 6
+    max_gravity = 10
     max_parachute_speed = 1
     max_fall_speed = max_gravity
     jumping = False

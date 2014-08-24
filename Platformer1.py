@@ -90,7 +90,7 @@ while not done:
 		done = eventsManager.determineEvent(event)
 	PhysicsEngine.PhysicsEngine().applyGravity([player])
 	all_sprite_list.update()
-	screen.fill(BLACK)
+	screen.fill(PINK)
 	camera.update(player)
 	for entity in all_sprite_list:
             screen.blit(entity.image, camera.apply(entity))
