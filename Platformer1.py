@@ -60,7 +60,7 @@ def complex_camera(camera, target_rect):
 pygame.init()
 # Create an 800x600 sized screen
 screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT'])])
- 
+
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
 
@@ -83,7 +83,7 @@ clock = pygame.time.Clock()
  
 done = False
 
-camera = Camera.Camera(complex_camera,  int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT']))
+camera = Camera.Camera(simple_camera,  int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT']))
 
 eventsManager = EventsManager.EventsManager(player)
 
@@ -95,6 +95,7 @@ while not done:
 	screen.fill(BLACK)
 	all_sprite_list.draw(screen)
 	entities = pygame.sprite.Group()
+	entities.add(player)
 	camera.update(player)
 	for e in entities:
             screen.blit(e.image, camera.apply(e))
