@@ -72,7 +72,7 @@ wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
  
 # Create the player paddle object
-playerSpriteSheet = 'BODY_skeleton.png'
+playerSpriteSheet = 'resources/spritemaps/BODY_skeleton.png'
 player = Player.Player(50, 50, playerSpriteSheet)
 player.walls = wall_list
 all_sprite_list.add(player)
