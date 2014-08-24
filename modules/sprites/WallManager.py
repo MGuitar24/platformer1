@@ -5,7 +5,7 @@ from modules.sprites import Wall
 class WallManager:
 	wall_properties = None
 
-	def __init__(self):
+	def __init__(self, wall_file):
 		properties = dict(line.strip().split('=') for line in open('settings.ini'))
 
 		self.wall_properties = {'wall_thickness': int(properties['WALL_THICKNESS']), 'level_width': int(properties['LEVEL_WIDTH']), 'level_height': int(properties['LEVEL_HEIGHT'])}	
@@ -16,7 +16,7 @@ class WallManager:
 	def get_walls(self):
 		wall_list = pygame.sprite.Group()
 
-		wall_file = open("resources/walls.txt", "r")
+		wall_file = open(wall_file, "r")
 
 		for line in wall_file.read().splitlines():
 			if not line or line.startswith("#"):

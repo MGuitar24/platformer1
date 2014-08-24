@@ -58,7 +58,7 @@ def complex_camera(camera, target_rect):
  
 # Call this function so the Pygame library can initialize itself
 pygame.init()
-# Create an 800x600 sized screen
+
 screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(properties['SCREEN_HEIGHT'])])
 
 # Set the title of the window
@@ -73,17 +73,17 @@ all_sprite_list = pygame.sprite.Group()
 wall_manager = WallManager.WallManager()
 wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
- 
+
 # Create the player paddle object
 player = Player.Player(50, 50, IMAGESDICT['player'])
 player.walls = wall_list
 all_sprite_list.add(player)
- 
+
 clock = pygame.time.Clock()
- 
+
 done = False
 
-camera = Camera.Camera(complex_camera,  int(properties['LEVEL_WIDTH']), int(properties['LEVEL_HEIGHT']))
+camera = Camera.Camera(complex_camera, int(properties['LEVEL_WIDTH']), int(properties['LEVEL_HEIGHT']))
 
 eventsManager = EventsManager.EventsManager(player)
 
