@@ -64,6 +64,13 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
+
+<<<<<<< HEAD
+IMAGESDICT = {'player': pygame.image.load('player.png'),'parachute': pygame.image.load('parachute.png')}
+ 
+=======
+>>>>>>> sprite
+# List to hold all the sprites
 all_sprite_list = pygame.sprite.Group()
  
 # Make the walls. (x_pos, y_pos, width, height)
@@ -90,7 +97,7 @@ while not done:
 		done = eventsManager.determineEvent(event)
 	PhysicsEngine.PhysicsEngine().applyGravity([player])
 	all_sprite_list.update()
-	screen.fill(BLACK)
+	screen.fill(PINK)
 	camera.update(player)
 	for entity in all_sprite_list:
             screen.blit(entity.image, camera.apply(entity))
