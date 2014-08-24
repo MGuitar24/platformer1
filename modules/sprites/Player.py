@@ -13,6 +13,8 @@ class Player(pygame.sprite.Sprite):
     animationSwitchCount = 0
     animationFrames = 9
     currentFrame = 0
+    direction = 1
+    moving = False
     walls = None
     velocity = 6
     max_gravity = 10
@@ -66,15 +68,25 @@ class Player(pygame.sprite.Sprite):
     def undeploy_parachute(self):
         self.max_fall_speed = self.max_gravity
 
-    def update(self):
-        if self.animationSwitchCount == self.animationSwitchThreshold:
-            self.image = self.downAnimationFrames[self.currentFrame]
-            self.currentFrame += 1
-            if self.currentFrame > 8:
-                self.currentFrame = 0
-            self.animationSwitchCount = 0
+    def determine_animation_for_direction(self):
+        if self.direction == 3:
+            return self.leftAnimationFrames
         else:
-            self.animationSwitchCount += 1
+            return self.rightAnimationFrames
+
+    def update_animation(self):
+        if self.moving:
+            if self.animationSwitchCount == self.animationSwitchThreshold:
+                self.image = self.determine_animation_for_direction()[self.currentFrame]
+                self.currentFrame += 1
+                if self.currentFrame > 8:
+                    self.currentFrame = 0
+                self.animationSwitchCount = 0
+            else:
+                self.animationSwitchCount += 1
+
+    def update(self):
+        self.update_animation()
 
         """ Update the player position. """
         # Move left/right
