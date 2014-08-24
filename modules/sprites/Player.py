@@ -1,4 +1,5 @@
 import pygame
+from modules.resource_handling.images import *
 
 WHITE    = ( 255, 255, 255)
 
@@ -8,20 +9,33 @@ class Player(pygame.sprite.Sprite):
     # Set speed vector
     change_x = 0
     change_y = 0
+    animationFrames = 9
     walls = None
     velocity = 6
     max_gravity = 6
     max_parachute_speed = 1
     max_fall_speed = max_gravity
     jumping = False
- 
+    iWidth = 28
+    iHeight = 46
+    imageLeftY = 79
+    imageDownY = 143
+    imageRightY = 207
+    downAnimationFrames = []
+    rightAnimationFrames = []
+    leftAnimationFrames = []
+        
     # Constructor function
-    def __init__(self, x, y, spriteImage):
+    def __init__(self, x, y, playerSpriteSheet):
         # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
- 
-        # Set height, width
-        self.image = spriteImage
+        spriteMap = Spritesheet.Spritesheet(playerSpriteSheet)
+        spritesheetUtility = SpritesheetUtility.SpritesheetUtility()
+        self.downAnimationFrames = spritesheetUtility.animationFramesLoader(18, self.imageDownY, self.iWidth, self.iHeight, 64, spriteMap)
+        self.rightAnimationFrames = spritesheetUtility.animationFramesLoader(18, self.imageRightY, self.iWidth, self.iHeight, 64,  spriteMap)
+        self.leftAnimationFrames = spritesheetUtility.animationFramesLoader(18, self.imageLeftY, self.iWidth, self.iHeight, 64, spriteMap)
+        
+        self.image = self.leftAnimationFrames[0]
  
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()

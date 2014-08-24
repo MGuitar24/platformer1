@@ -1,1 +1,1 @@
-__all__ = ["Spritesheet"]
+__all__ = ["Spritesheet", "SpritesheetUtility"]
