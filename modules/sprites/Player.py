@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
     max_parachute_speed = 1
     max_fall_speed = max_gravity
     jumping = False
+    jumpingTwice = False
     iWidth = 28                 # The width of the sprite
     iHeight = 46                # The height of the sprite
     imageLeftY = 79             # Left animation y value
@@ -58,12 +59,12 @@ class Player(pygame.sprite.Sprite):
             self.change_y = self.max_fall_speed
  
     def jump(self):
+        if self.jumping and not self.jumpingTwice:
+            self.change_y = -16
+            self.jumpingTwice = True
         if not self.jumping:
             self.change_y = -16
             self.jumping = True
-        if self.jumping:
-            self.change_y = -16
-            self.jumpingTwice = True
 
     def deploy_parachute(self):
         self.max_fall_speed = self.max_parachute_speed
@@ -116,7 +117,7 @@ class Player(pygame.sprite.Sprite):
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
                 self.jumping = False
-                self.jumping = False
+                self.jumpingTwice = False
                 self.change_y = 0
             else:
                 self.rect.top = block.rect.bottom
