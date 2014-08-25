@@ -121,3 +121,6 @@ class Player(pygame.sprite.Sprite):
                 self.change_y = 0
             else:
                 self.rect.top = block.rect.bottom
+                self.jumping = False
+                self.jumpingTwice = False
+                self.change_y = 0
