@@ -38,10 +38,10 @@ properties = dict(line.strip().split('=') for line in open('settings.ini'))
 resourceFiles = {}
 resourceFiles["MAIN_CHARACTER"] = 'resources/spritemaps/BODY_skeleton.png'
 resourceFiles["CHEST"] = 'resources/spritemaps/OBJECT_chest.png'
+resourceFiles["LVL1_BACKGROUND"] = 'resources/spritemaps/BACKGROUND_level_1.png'
 
 HALF_WIDTH = int(int(properties['SCREEN_WIDTH']) / 2)
 HALF_HEIGHT = int(int(properties['SCREEN_HEIGHT']) / 2)
-
 
 def simple_camera(camera, target_rect):
     l, t, _, _ = target_rect
@@ -72,6 +72,8 @@ all_sprite_list = pygame.sprite.Group()
 
 all_proximity_entities = []
 
+background = Background.Background(resourceFiles["LVL1_BACKGROUND"])
+
 # Make the walls. (x_pos, y_pos, width, height)
 wall_manager = WallManager.WallManager()
 wall_list = wall_manager.get_walls()
@@ -89,7 +91,7 @@ all_proximity_entities.append(chest)
  
 clock = pygame.time.Clock()
  
-done = False
+done = False    
 
 camera = Camera.Camera(complex_camera,  int(properties['LEVEL_WIDTH']), int(properties['LEVEL_HEIGHT']))
 
@@ -104,8 +106,14 @@ while not done:
     screen.fill(PINK)
     camera.update(player)
     proximityManager.checkProximityToPlayers(all_proximity_entities)
+    for y in range(0, int(properties['LEVEL_HEIGHT']), background.iHeight):
+        for x in range(0, int(properties['LEVEL_WIDTH']), background.iWidth):
+            background.rect.x = x
+            background.rect.y = y
+            screen.blit( background.image,camera.apply(background))
     for entity in all_sprite_list:
             screen.blit(entity.image, camera.apply(entity))
+    
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
