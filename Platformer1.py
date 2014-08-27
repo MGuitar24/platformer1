@@ -37,8 +37,6 @@ properties = dict(line.strip().split('=') for line in open('settings.ini'))
 
 resourceFiles = {}
 resourceFiles["MAIN_CHARACTER"] = 'resources/spritemaps/BODY_skeleton.png'
-resourceFiles["CHEST"] = 'resources/spritemaps/OBJECT_chest.png'
-resourceFiles["LVL1_BACKGROUND"] = 'resources/spritemaps/BACKGROUND_level_1.png'
 
 HALF_WIDTH = int(int(properties['SCREEN_WIDTH']) / 2)
 HALF_HEIGHT = int(int(properties['SCREEN_HEIGHT']) / 2)
@@ -54,8 +52,6 @@ def complex_camera(camera, target_rect):
     t = min(0, t)                           # stop scrolling at the top
     return Rect(l, t, w, h)
     
-
- 
 # Call this function so the Pygame library can initialize itself
 pygame.init()
 
@@ -66,10 +62,9 @@ pygame.display.set_caption('Between the world of Black and Blue')
 all_sprite_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 all_proximity_entities_list = []
+background = Background.Background()
 
-background = Background.Background(resourceFiles["LVL1_BACKGROUND"])
-
-level_manager = LevelManager.LevelManager(all_sprite_group, wall_group, all_proximity_entities_list)
+level_manager = LevelManager.LevelManager(all_sprite_group, wall_group, all_proximity_entities_list, background)
 level_manager.load_level(1)
 
 # Create the player paddle object
