@@ -59,6 +59,8 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
+
+# Level management initialization
 all_sprite_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 all_proximity_entities_list = []
