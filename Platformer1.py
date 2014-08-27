@@ -67,7 +67,7 @@ pygame.display.set_caption('Between the world of Black and Blue')
 all_sprite_list = pygame.sprite.Group()
  
 # Make the walls. (x_pos, y_pos, width, height)
-wall_manager = WallManager.WallManager()
+wall_manager = WallManager.WallManager("resources/levels/level1.txt")
 wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
 
