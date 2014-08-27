@@ -75,19 +75,20 @@ all_proximity_entities = []
 background = Background.Background(resourceFiles["LVL1_BACKGROUND"])
 
 # Make the walls. (x_pos, y_pos, width, height)
-wall_manager = WallManager.WallManager("resources/levels/level1.txt")
-wall_list = wall_manager.get_walls()
+entity_manager = EntityManager.EntityManager("resources/levels/level1_walls.txt", "resources/levels/level1_entities.txt")
+wall_list = entity_manager.get_walls()
 all_sprite_list.add(wall_list)
+
+# Add other entity objects
+entity_list = entity_manager.get_entities()
+all_sprite_list.add(entity_list)
+all_proximity_entities.extend(entity_list)
 
 # Create the player paddle object
 playerSpriteSheet = resourceFiles["MAIN_CHARACTER"]
 player = Player.Player(50, 50, playerSpriteSheet)
 player.walls = wall_list
 all_sprite_list.add(player)
-
-chest = Chest.Chest(10, 556, resourceFiles["CHEST"])
-all_sprite_list.add(chest)
-all_proximity_entities.append(chest)
  
 clock = pygame.time.Clock()
  
