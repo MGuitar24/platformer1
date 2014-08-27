@@ -35,9 +35,13 @@ PINK = (255, 20, 147)
 
 properties = dict(line.strip().split('=') for line in open('settings.ini'))
 
+resourceFiles = {}
+resourceFiles["MAIN_CHARACTER"] = 'resources/spritemaps/BODY_skeleton.png'
+resourceFiles["CHEST"] = 'resources/spritemaps/OBJECT_chest.png'
+resourceFiles["LVL1_BACKGROUND"] = 'resources/spritemaps/BACKGROUND_level_1.png'
+
 HALF_WIDTH = int(int(properties['SCREEN_WIDTH']) / 2)
 HALF_HEIGHT = int(int(properties['SCREEN_HEIGHT']) / 2)
-
 
 def simple_camera(camera, target_rect):
     l, t, _, _ = target_rect
@@ -65,35 +69,51 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
 all_sprite_list = pygame.sprite.Group()
- 
+
+all_proximity_entities = []
+
+background = Background.Background(resourceFiles["LVL1_BACKGROUND"])
+
 # Make the walls. (x_pos, y_pos, width, height)
 wall_manager = WallManager.WallManager("resources/levels/level1.txt")
 wall_list = wall_manager.get_walls()
 all_sprite_list.add(wall_list)
 
 # Create the player paddle object
-playerSpriteSheet = 'BODY_skeleton.png'
+playerSpriteSheet = resourceFiles["MAIN_CHARACTER"]
 player = Player.Player(50, 50, playerSpriteSheet)
 player.walls = wall_list
 all_sprite_list.add(player)
 
+chest = Chest.Chest(10, 556, resourceFiles["CHEST"])
+all_sprite_list.add(chest)
+all_proximity_entities.append(chest)
+ 
 clock = pygame.time.Clock()
-
-done = False
+ 
+done = False    
 
 camera = Camera.Camera(complex_camera, int(properties['LEVEL_WIDTH']), int(properties['LEVEL_HEIGHT']))
 
 eventsManager = EventsManager.EventsManager(player)
+proximityManager = ProximityManager.ProximityManager((player,))
 
 while not done:
-	for event in pygame.event.get():
-		done = eventsManager.determineEvent(event)
-	PhysicsEngine.PhysicsEngine().applyGravity([player])
-	all_sprite_list.update()
-	screen.fill(PINK)
-	camera.update(player)
-	for entity in all_sprite_list:
+    for event in pygame.event.get():
+        done = eventsManager.determineEvent(event)
+    PhysicsEngine.PhysicsEngine().applyGravity([player])
+    all_sprite_list.update()
+    screen.fill(PINK)
+    camera.update(player)
+    proximityManager.checkProximityToPlayers(all_proximity_entities)
+    for y in range(0, int(properties['LEVEL_HEIGHT']), background.iHeight):
+        for x in range(0, int(properties['LEVEL_WIDTH']), background.iWidth):
+            background.rect.x = x
+            background.rect.y = y
+            screen.blit( background.image,camera.apply(background))
+    for entity in all_sprite_list:
             screen.blit(entity.image, camera.apply(entity))
-	pygame.display.flip()
-	clock.tick(60)
+    
+    pygame.display.flip()
+    clock.tick(60)
 pygame.quit()

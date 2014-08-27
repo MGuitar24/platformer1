@@ -16,7 +16,11 @@ class WallManager:
 	def get_walls(self):
 		wall_list = pygame.sprite.Group()
 
+<<<<<<< HEAD
 		wall_file = open(self.wall_filename, "r")
+=======
+		wall_file = open("resources/levels/walls.txt", "r")
+>>>>>>> d0b30af29c3678010924b314f97d9d0a02ad7acd
 
 		for line in wall_file.read().splitlines():
 			if not line or line.startswith("#"):

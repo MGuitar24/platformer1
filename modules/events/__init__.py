@@ -1,1 +1,1 @@
-__all__ = ["EventsManager"]
+__all__ = ["EventsManager", "ProximityManager"]

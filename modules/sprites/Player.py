@@ -13,12 +13,15 @@ class Player(pygame.sprite.Sprite):
     animationSwitchCount = 0
     animationFrames = 9
     currentFrame = 0
+    direction = 1
+    moving = False
     walls = None
     velocity = 6
     max_gravity = 10
     max_parachute_speed = 1
     max_fall_speed = max_gravity
     jumping = False
+    jumpingTwice = False
     iWidth = 28                 # The width of the sprite
     iHeight = 46                # The height of the sprite
     imageLeftY = 79             # Left animation y value
@@ -56,6 +59,9 @@ class Player(pygame.sprite.Sprite):
             self.change_y = self.max_fall_speed
  
     def jump(self):
+        if self.jumping and not self.jumpingTwice:
+            self.change_y = -16
+            self.jumpingTwice = True
         if not self.jumping:
             self.change_y = -16
             self.jumping = True
@@ -66,15 +72,25 @@ class Player(pygame.sprite.Sprite):
     def undeploy_parachute(self):
         self.max_fall_speed = self.max_gravity
 
-    def update(self):
-        if self.animationSwitchCount == self.animationSwitchThreshold:
-            self.image = self.downAnimationFrames[self.currentFrame]
-            self.currentFrame += 1
-            if self.currentFrame > 8:
-                self.currentFrame = 0
-            self.animationSwitchCount = 0
+    def determine_animation_for_direction(self):
+        if self.direction == 3:
+            return self.leftAnimationFrames
         else:
-            self.animationSwitchCount += 1
+            return self.rightAnimationFrames
+
+    def update_animation(self):
+        if self.moving:
+            if self.animationSwitchCount == self.animationSwitchThreshold:
+                self.image = self.determine_animation_for_direction()[self.currentFrame]
+                self.currentFrame += 1
+                if self.currentFrame > 8:
+                    self.currentFrame = 0
+                self.animationSwitchCount = 0
+            else:
+                self.animationSwitchCount += 1
+
+    def update(self):
+        self.update_animation()
 
         """ Update the player position. """
         # Move left/right
@@ -101,6 +117,10 @@ class Player(pygame.sprite.Sprite):
             if self.change_y > 0:
                 self.rect.bottom = block.rect.top
                 self.jumping = False
+                self.jumpingTwice = False
                 self.change_y = 0
             else:
                 self.rect.top = block.rect.bottom
+                self.jumping = False
+                self.jumpingTwice = False
+                self.change_y = 0
