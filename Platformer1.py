@@ -68,20 +68,20 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
-all_sprite_list = pygame.sprite.Group()
-wall_list = pygame.sprite.Group()
-all_proximity_entities = []
+all_sprite_group = pygame.sprite.Group()
+wall_group = pygame.sprite.Group()
+all_proximity_entities_list = []
 
 background = Background.Background(resourceFiles["LVL1_BACKGROUND"])
 
-level_manager = LevelManager.LevelManager(all_sprite_list, wall_list, all_proximity_entities)
+level_manager = LevelManager.LevelManager(all_sprite_group, wall_group, all_proximity_entities_list)
 level_manager.load_level(1)
 
 # Create the player paddle object
 playerSpriteSheet = resourceFiles["MAIN_CHARACTER"]
 player = Player.Player(50, 50, playerSpriteSheet)
-player.walls = wall_list
-all_sprite_list.add(player)
+player.walls = wall_group
+all_sprite_group.add(player)
  
 clock = pygame.time.Clock()
  
@@ -96,16 +96,16 @@ while not done:
     for event in pygame.event.get():
         done = eventsManager.determineEvent(event)
     PhysicsEngine.PhysicsEngine().applyGravity([player])
-    all_sprite_list.update()
+    all_sprite_group.update()
     screen.fill(PINK)
     camera.update(player)
-    proximityManager.checkProximityToPlayers(all_proximity_entities)
+    proximityManager.checkProximityToPlayers(all_proximity_entities_list)
     for y in range(0, int(properties['LEVEL_HEIGHT']), background.iHeight):
         for x in range(0, int(properties['LEVEL_WIDTH']), background.iWidth):
             background.rect.x = x
             background.rect.y = y
             screen.blit( background.image,camera.apply(background))
-    for entity in all_sprite_list:
+    for entity in all_sprite_group:
             screen.blit(entity.image, camera.apply(entity))
     
     pygame.display.flip()
