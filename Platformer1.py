@@ -43,11 +43,6 @@ resourceFiles["LVL1_BACKGROUND"] = 'resources/spritemaps/BACKGROUND_level_1.png'
 HALF_WIDTH = int(int(properties['SCREEN_WIDTH']) / 2)
 HALF_HEIGHT = int(int(properties['SCREEN_HEIGHT']) / 2)
 
-def simple_camera(camera, target_rect):
-    l, t, _, _ = target_rect
-    _, _, w, h = camera
-    return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
-
 def complex_camera(camera, target_rect):
     l, t, _, _ = target_rect
     _, _, w, h = camera
