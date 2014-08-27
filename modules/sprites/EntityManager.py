@@ -55,7 +55,7 @@ class EntityManager:
 			line_params = line.split(",")
 
 			if "chest" == line_params[0]:
-				entity = Chest.Chest(line_params[1], line_params[2], line_params[3])
+				entity = Chest.Chest(int(line_params[1]), int(line_params[2]), line_params[3])
 				entity_list.add(entity)
 
 		return entity_list

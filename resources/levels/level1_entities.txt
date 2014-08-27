@@ -1,2 +1,2 @@
 # Chest
-10,556,%(chest_filename)s
+chest,10,556,%(chest_filename)s
