@@ -1,2 +1,5 @@
-# Chest
-10,556,%(chest_filename)s
+# Chest (x,y,filename)
+chest,10,556,%(chest_filename)s
+
+# Player position (x,y)
+player,50,50

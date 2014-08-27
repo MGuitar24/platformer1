@@ -32,7 +32,7 @@ class Player(pygame.sprite.Sprite):
     leftAnimationFrames = []
         
     # Constructor function
-    def __init__(self, x, y, playerSpriteSheet):
+    def __init__(self, playerSpriteSheet):
         # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
         spriteMap = Spritesheet.Spritesheet(playerSpriteSheet)
@@ -43,11 +43,12 @@ class Player(pygame.sprite.Sprite):
         
         self.image = self.downAnimationFrames[self.currentFrame]
  
-        # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
-        self.rect.y = y
-        self.rect.x = x
  
+    def change_location(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+
     def changespeed(self, x):
         """ Change the speed of the player. """
         self.change_x += x * self.velocity

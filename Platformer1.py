@@ -60,21 +60,19 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
 
+# Create the player paddle object
+playerSpriteSheet = resourceFiles["MAIN_CHARACTER"]
+player = Player.Player(playerSpriteSheet)
+
 # Level management initialization
 all_sprite_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 all_proximity_entities_list = []
 background = Background.Background()
 
-level_manager = LevelManager.LevelManager(all_sprite_group, wall_group, all_proximity_entities_list, background)
+level_manager = LevelManager.LevelManager(all_sprite_group, wall_group, all_proximity_entities_list, background, player)
 level_manager.load_level(1)
 
-# Create the player paddle object
-playerSpriteSheet = resourceFiles["MAIN_CHARACTER"]
-player = Player.Player(50, 50, playerSpriteSheet)
-player.walls = wall_group
-all_sprite_group.add(player)
- 
 clock = pygame.time.Clock()
  
 done = False    
