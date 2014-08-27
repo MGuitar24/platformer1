@@ -26,30 +26,23 @@ class LevelManager:
 	def load_level(self, level_number):
 		level_number = str(level_number)
 
-		self.__remove_old_sprites()
-
 		wall_filepath = self.level_base_filepath + level_number + "_walls"+ self.level_extension
 		entity_filepath = self.level_base_filepath + level_number + "_entities"+ self.level_extension
-		properties_filepath = self.level_base_filepath + level_number + "_properties" + self.level_extension
-		background_filepath = self.background_base_filepath + level_number + self.background_extension
-
-		self.background.change_background(background_filepath)
 
 		entity_manager = EntityManager.EntityManager(wall_filepath, entity_filepath)
 
 		self.current_level_walls = entity_manager.get_walls()
 		self.current_level_entities = entity_manager.get_entities()
 
-		self.all_sprite_group.add(self.current_level_walls)
-		self.all_sprite_group.add(self.current_level_entities)
+		self.__reload_sprites()
+		self.__update_background(level_number)
+		self.__move_player(level_number)
 
-		self.wall_group.add(self.current_level_walls)
-		self.proximity_sprite_list.extend(self.current_level_entities)
+	def __update_background(self, level_number):
+		self.background.change_background(self.background_base_filepath + level_number + self.background_extension)
 
-		self.__move_player(properties_filepath)
-
-	def __move_player(self, properties_filepath):
-		properties_file = open(properties_filepath, "r")
+	def __move_player(self, level_number):
+		properties_file = open(self.level_base_filepath + level_number + "_properties" + self.level_extension, "r")
 
 		for line in properties_file.read().splitlines():
 			if not line or line.startswith("#"):
@@ -63,10 +56,16 @@ class LevelManager:
 
 		properties_file.close()
 
-	def __remove_old_sprites(self):
+	def __reload_sprites(self):
 		if self.current_level_walls and self.current_level_walls and self.all_sprite_group:
 			self.all_sprite_group.remove(self.current_level_walls)
 			self.all_sprite_group.remove(self.current_level_entities)
 
 			self.wall_group.remove(self.current_level_walls)
 			self.proximity_sprite_list = [x for x in self.proximity_sprite_list if x not in self.current_level_entities]
+
+		self.all_sprite_group.add(self.current_level_walls)
+		self.all_sprite_group.add(self.current_level_entities)
+
+		self.wall_group.add(self.current_level_walls)
+		self.proximity_sprite_list.extend(self.current_level_entities)
