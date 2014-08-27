@@ -69,7 +69,9 @@ screen = pygame.display.set_mode([int(properties['SCREEN_WIDTH']), int(propertie
 # Set the title of the window
 pygame.display.set_caption('Between the world of Black and Blue')
 all_sprite_list = pygame.sprite.Group()
- 
+
+all_proximity_entities = []
+
 # Make the walls. (x_pos, y_pos, width, height)
 wall_manager = WallManager.WallManager()
 wall_list = wall_manager.get_walls()
@@ -83,6 +85,7 @@ all_sprite_list.add(player)
 
 chest = Chest.Chest(10, 556, resourceFiles["CHEST"])
 all_sprite_list.add(chest)
+all_proximity_entities.append(chest)
  
 clock = pygame.time.Clock()
  
@@ -91,16 +94,18 @@ done = False
 camera = Camera.Camera(complex_camera,  int(properties['LEVEL_WIDTH']), int(properties['LEVEL_HEIGHT']))
 
 eventsManager = EventsManager.EventsManager(player)
+proximityManager = ProximityManager.ProximityManager((player,))
 
 while not done:
-	for event in pygame.event.get():
-		done = eventsManager.determineEvent(event)
-	PhysicsEngine.PhysicsEngine().applyGravity([player])
-	all_sprite_list.update()
-	screen.fill(PINK)
-	camera.update(player)
-	for entity in all_sprite_list:
+    for event in pygame.event.get():
+        done = eventsManager.determineEvent(event)
+    PhysicsEngine.PhysicsEngine().applyGravity([player])
+    all_sprite_list.update()
+    screen.fill(PINK)
+    camera.update(player)
+    proximityManager.checkProximityToPlayers(all_proximity_entities)
+    for entity in all_sprite_list:
             screen.blit(entity.image, camera.apply(entity))
-	pygame.display.flip()
-	clock.tick(60)
+    pygame.display.flip()
+    clock.tick(60)
 pygame.quit()
